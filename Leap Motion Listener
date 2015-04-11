@@ -1,0 +1,39 @@
+class SampleListener : Listener
+{
+    private Object thisLock = new Object ();
+
+    private void SafeWriteLine (String line)
+    {
+        lock (thisLock) {
+                Console.WriteLine (line);
+        }
+    }
+
+    public override void OnConnect (Controller controller)
+    {
+        SafeWriteLine ("Connected");
+        controller.enableGesture(Gesture.Type.TYPE_SWIPE);
+        controller.enableGesture(Gesture.Type.TYPE_SCREEN_TAP);
+        
+        ScreenTapGesture screentap = new ScreenTapGesture();
+        Vector pokeLocation = screentap.position();
+        
+        //Creates an interaction box? Maybe we can poke these to select things. I made one for now
+        //InteractionBox option1 = new InteractionBox();
+        //Vector boxCenter = option1.center();
+        //if (pokeLocation == boxCenter)
+    }
+
+
+    public override void OnFrame (Controller controller)
+    {
+        Frame frame = controller.frame();
+        
+        SafeWriteLine("Frame id: "+ frame.id()
+                + ", timestamp: " + frame.timestamp()
+                + ", hands: " + frame.hands().count()
+                + ", fingers: " + frame.fingers().count()
+                + ", tools: " + frame.tools().count()
+                + ", gestures: " + frame.gestures().count());
+    }
+}
