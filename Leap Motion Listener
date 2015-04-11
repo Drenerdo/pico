@@ -34,6 +34,6 @@ class SampleListener : Listener
                 + ", hands: " + frame.hands().count()
                 + ", fingers: " + frame.fingers().count()
                 + ", tools: " + frame.tools().count()
-                + ", gestures: " + frame.gestures().count());
+                + ", gestures: " + frame.gestures().count()); 
     }
 }
